@@ -1,0 +1,6 @@
+pymongo
+https://www.mongodb.com/docs/languages/python/pymongo-driver/current/
+
+financial news:
+https://finance.yahoo.com/topic/latest-news/
+
