@@ -1,0 +1,33 @@
+name: Daily Finance Scraper
+
+on:
+  schedule:
+    # Runs at 08:00 UTC every day.
+    # You can change this using cron syntax. Example: '0 8 * * *' = 8am UTC
+    - cron: "0 8 * * *"
+  workflow_dispatch: # Allows you to click "Run workflow" manually in GitHub Actions tab
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirement.txt
+
+      - name: Run Scraper
+        # We pass the secrets as environment variables so os.getenv() can read them
+        env:
+          db_username: ${{ secrets.DB_USERNAME }}
+          db_password: ${{ secrets.DB_PASSWORD }}
+          db_host: ${{ secrets.DB_HOST }}
+        run: python daily_scraper.py
