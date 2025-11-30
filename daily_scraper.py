@@ -57,7 +57,12 @@ news_uri = "https://finance.yahoo.com/topic/latest-news/"
 
 # We use Selenium because the 'fin-streamer' percentages are loaded via JavaScript
 options = Options()
-options.add_argument("--headless") 
+options.add_argument("--headless=new") # Updated headless syntax
+options.add_argument("--disable-gpu")
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage") # CRITICAL for GitHub Actions/Docker
+options.page_load_strategy = 'eager' # Don't wait for full page load (images, etc.)
+
 ua = UserAgent()
 userAgent = ua.random
 options.add_argument(f'user-agent={userAgent}')
