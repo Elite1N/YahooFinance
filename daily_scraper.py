@@ -76,10 +76,12 @@ try:
     driver.get(news_uri)
     time.sleep(3) # Wait for page to load
     
-    # Scroll until no new content loads
+    # Scroll to load more news (Limit to 10 scrolls to prevent CI crash)
     last_height = driver.execute_script("return document.body.scrollHeight")
     scroll_count = 0
-    while True:
+    max_scrolls = 10
+    
+    while scroll_count < max_scrolls:
         # Scroll to bottom
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         
@@ -95,7 +97,7 @@ try:
             
         last_height = new_height
         scroll_count += 1
-        print(f"Scrolled {scroll_count} times...")
+        print(f"Scrolled {scroll_count}/{max_scrolls} times...")
         
     page_source = driver.page_source
 finally:
