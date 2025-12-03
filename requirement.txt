@@ -5,3 +5,8 @@ beautifulsoup4
 pandas
 pymongo
 python-dotenv
+numpy
+transformers
+torch
+tokenizers
+matplotlib
