@@ -21,7 +21,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -r requirement.txt
+          pip install -r scraper_requirement.txt
 
       - name: Run Scraper
         # We pass the secrets as environment variables so os.getenv() can read them

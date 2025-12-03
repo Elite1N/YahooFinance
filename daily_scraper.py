@@ -57,16 +57,28 @@ news_uri = "https://finance.yahoo.com/topic/latest-news/"
 
 # We use Selenium because the 'fin-streamer' percentages are loaded via JavaScript
 options = Options()
-options.add_argument("--headless=new") # Updated headless syntax
+options.add_argument("--headless=new") 
 options.add_argument("--disable-gpu")
 options.add_argument("--no-sandbox")
-options.add_argument("--disable-dev-shm-usage") # CRITICAL for GitHub Actions/Docker
-options.page_load_strategy = 'eager' # Don't wait for full page load (images, etc.)
+options.add_argument("--disable-dev-shm-usage")
+options.add_argument("--window-size=1920,1080")
+options.add_argument("--disable-extensions")
+options.page_load_strategy = 'eager'
+
+# Block images and stylesheets to save memory
+prefs = {
+    "profile.managed_default_content_settings.images": 2,
+    "profile.managed_default_content_settings.stylesheets": 2,
+}
+options.add_experimental_option("prefs", prefs)
 
 ua = UserAgent()
 userAgent = ua.random
 options.add_argument(f'user-agent={userAgent}')
+
 driver = webdriver.Chrome(options=options)
+driver.set_page_load_timeout(60)
+driver.set_script_timeout(60)
 
 # Headers for the requests library
 headers = {'User-Agent': userAgent}
@@ -76,28 +88,32 @@ try:
     driver.get(news_uri)
     time.sleep(3) # Wait for page to load
     
-    # Scroll to load more news (Limit to 10 scrolls to prevent CI crash)
+    # Scroll to load more news (Limit to 3 scrolls for stability)
     last_height = driver.execute_script("return document.body.scrollHeight")
     scroll_count = 0
-    max_scrolls = 10
+    max_scrolls = 8
     
     while scroll_count < max_scrolls:
-        # Scroll to bottom
-        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-        
-        # Wait for page to load
-        time.sleep(3) 
-        
-        # Calculate new scroll height and compare with last scroll height
-        new_height = driver.execute_script("return document.body.scrollHeight")
-        
-        if new_height == last_height:
-            print("Reached the end of the news feed.")
-            break
+        try:
+            # Scroll to bottom
+            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
             
-        last_height = new_height
-        scroll_count += 1
-        print(f"Scrolled {scroll_count}/{max_scrolls} times...")
+            # Wait for page to load
+            time.sleep(3) 
+            
+            # Calculate new scroll height
+            new_height = driver.execute_script("return document.body.scrollHeight")
+            
+            if new_height == last_height:
+                print("Reached the end of the news feed.")
+                break
+                
+            last_height = new_height
+            scroll_count += 1
+            print(f"Scrolled {scroll_count}/{max_scrolls} times...")
+        except Exception as e:
+            print(f"Scrolling interrupted: {e}. Proceeding with current content.")
+            break
         
     page_source = driver.page_source
 finally:

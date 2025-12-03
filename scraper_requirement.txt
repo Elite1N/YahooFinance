@@ -1,0 +1,7 @@
+selenium
+fake-useragent
+requests
+beautifulsoup4
+pandas
+pymongo
+python-dotenv
