@@ -11,3 +11,5 @@ torch
 tokenizers
 matplotlib
 bertopic
+pprint
+berttopic
