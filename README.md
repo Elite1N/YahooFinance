@@ -90,8 +90,11 @@ The `Data_Cleaning_&_EDA.ipynb` notebook handles data preprocessing and explorat
 **Result:**
 Insights into the dataset structure, such as the most active publishers (e.g., Barchart, Business Insider) and peak publication times.
 
-![EDA Summary Plot](images/eda_summary_plot.png)
-*(Please save the combined summary plot from the notebook to `images/eda_summary_plot.png`)*
+### Example of cleaned data
+![Data Cleaning Summary](images/Step3_1.png)
+### EDA Visualisation
+![EDA Summary Plot](images/Step3_2.png)
+
 
 ---
 
