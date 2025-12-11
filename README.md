@@ -115,7 +115,7 @@ Identification of key topics discussed in the financial news, represented by clu
 ![Topic Modeling Barchart](images/topic_modeling_barchart.png)
 ### Document Clusters
 ![Document clusters](images/docs_clusters.png)
-*(Please save the topic word scores plot from the notebook to `images/topic_modeling_barchart.png`)*
+
 
 ---
 
