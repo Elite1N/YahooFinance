@@ -111,8 +111,10 @@ The `Topic_Modeling.ipynb` notebook uses **BERTopic** to discover underlying the
 
 **Result:**
 Identification of key topics discussed in the financial news, represented by clusters of related keywords.
-
+### The most popular words per topic Visualizes
 ![Topic Modeling Barchart](images/topic_modeling_barchart.png)
+### Document Clusters
+![Document clusters](images/docs_clusters.png)
 *(Please save the topic word scores plot from the notebook to `images/topic_modeling_barchart.png`)*
 
 ---
