@@ -130,10 +130,10 @@ The `sentimental_analysis.ipynb` notebook performs sentiment analysis using **Fi
 -   Performs **Temporal Analysis**: Visualizes sentiment trends over time.
 
 **Result:**
-A detailed breakdown of market sentiment, identifying which stocks are receiving positive or negative coverage and how general market sentiment evolves daily.
+A detailed breakdown of market sentiment, identifying how much the general market are receiving positive or negative coverage and how general market sentiment evolves daily.
 
 ![Sentiment Analysis Daily](images/sentiment_analysis_daily.png)
-*(Please save the daily sentiment trend plot from the notebook to `images/sentiment_analysis_daily.png`)*
+
 
 ---
 
